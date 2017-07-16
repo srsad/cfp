@@ -20,7 +20,7 @@ $ npm i -d
 
 Bower грузит в `app/assets/templates/lib/`
 
-####Список команд:
+#### Список команд:
  - `gulp sass` - сборка сss по правилу `app/.../sass/**/*.+(sass|scss)`
  - `gulp scripts` - сборка и сжатие скриптов, по умолчанию:
     - `../lib/jquery/dist/jquery.min.js`
