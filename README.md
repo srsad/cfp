@@ -9,14 +9,14 @@ $ npm i -d
  - `gulp-autoprefixer`
  - `browser-sync`
  - `gulp-concat` - для конкатенации файлов
- - `gulp-uglifyjs` - для сжатия JS
- - `gulp-cssnano` - для минификации CSS
+ - `gulp-uglifyjs` - для сжатия **JS**
+ - `gulp-cssnano` - для минификации **CSS**
  - `gulp-rename`
  - `del`
  - `gulp-imagemin` - для работы с изображениями 
  - `imagemin-pngquant` - для работы с png
  - `gulp-cache` - тупо кэш
- - `gulp-gzip` - для упаковки файлов в `*.gz`
+ - `gulp-gzip` - для упаковки файлов в **\*.gz**
 
 Bower грузит в `app/assets/templates/lib/`
 Список команд:
@@ -31,5 +31,5 @@ Bower грузит в `app/assets/templates/lib/`
  - `gulp img` - находит изображения по правилу `app/assets/templates/img/**/*` и сжимает
  - `gulp watch` - основная команда для работы. Она запускает `['css-libs', 'browser-sync', 'scripts']` и следит за css, js, html файлами
  - `gulp build` - сбока продакшена в dist
-	- если выполнить `gulp build --el` все *.html файлы, будут скопированы в `elements/templates`. т.е. если вы используете fenom и файлы, то останется только порезать шаблоны на чанки и все!
+	- если выполнить `gulp build --el` все **\*.html** файлы, будут скопированы в `elements/templates`. т.е. если вы используете fenom и файлы, то останется только порезать шаблоны на чанки и все!
 
