@@ -120,8 +120,15 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 
 	var buildHtml = gulp.src('app/*.html')
 	.pipe(gulp.dest('dist'))
-	.pipe(gulp.dest('dist/assets/templates/original/app')) 
-	.pipe(gulp.dest('elements/templates')); // сюда летят все html файлы которые мы будем нарезать на чанки
+	.pipe(gulp.dest('dist/assets/templates/original/app'));
+//	.pipe(gulp.dest('elements/templates')); // сюда летят все html файлы которые мы будем нарезать на чанки
+
+	//если надо скопировать html в templates
+	var option, i = process.argv.indexOf("--el");
+	if(i>-1 && process.argv[i] === '--el') {
+		var buildHtml = gulp.src('app/*.html')
+		.pipe(gulp.dest('elements/templates')); // сюда летят все html файлы которые мы будем нарезать на чанки
+	}
 
 	var gulpfile  = gulp.src('gulpfile.js')
 	.pipe(gulp.dest('dist/assets/templates/original'));
@@ -133,5 +140,3 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	.pipe(gulp.dest('dist/assets/templates/original'));
 
 });
-
-

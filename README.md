@@ -1,4 +1,4 @@
-### Front-end болванка для modx revo
+### Frontend болванка для modx revo
 Для установки, вызвать консоль в корневой директории проекта и выполнить команду 
 ```sh
 $ npm i -d
@@ -31,4 +31,5 @@ Bower грузит в `app/assets/templates/lib/`
  - `gulp img` - находит изображения по правилу `app/assets/templates/img/**/*` и сжимает
  - `gulp watch` - основная команда для работы. Она запускает `['css-libs', 'browser-sync', 'scripts']` и следит за css, js, html файлами
  - `gulp build` - сбока продакшена в dist
-# cfp
+	- если выполнить `gulp build --el` все *.html файлы, будут скопированы в `elements/templates`. т.е. если вы используете fenom и файлы, то останется только порезать шаблоны на чанки и все!
+
