@@ -1,6 +1,4 @@
 node_modules
 dist/sftp-config.json
-elements/plugins
-elements/snippets
 elements/sftp-config.json
 dist/assets/templates/img/goods.jpg
