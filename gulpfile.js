@@ -60,7 +60,7 @@ gulp.task('css-libs', ['sass'], function(){
 gulp.task('browser-sync', function(){
 	browserSunc({
 		server: {
-			baseDir: 'assets'
+			baseDir: 'app'
 		},
 		notify: false
 	});
