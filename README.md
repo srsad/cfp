@@ -1,8 +1,11 @@
 ### Frontend болванка для modx revo
 Для установки, вызвать консоль в корневой директории проекта и выполнить команду 
 ```sh
-$ npm i -d
+$ npm i
 ```
+#### Сетка
+[Flexbox Grid]
+
 В сборку входит:
  - `gulp`
  - `gulp-sass`
@@ -34,3 +37,5 @@ Bower грузит в `app/assets/templates/lib/`
  - `gulp build` - сбока продакшена в dist
 	- если выполнить `gulp build --el` все **\*.html** файлы, будут скопированы в `elements/templates`. т.е. если вы используете fenom и файлы, то останется только порезать шаблоны на чанки и все!
 
+
+[Flexbox Grid]: <http://flexboxgrid.com/>
