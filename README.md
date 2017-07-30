@@ -6,7 +6,7 @@ $ npm i
 #### Сетка
 [Flexbox Grid]
 
-В сборку входит:
+#### В сборку входит:
  - `gulp`
  - `gulp-sass`
  - `gulp-autoprefixer`
