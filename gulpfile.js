@@ -113,6 +113,7 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/js'));
 
 	var lils 	  = gulp.src('app/assets/templates/lib/**/*')
+	.pipe(gulp.dest('dist/assets/templates/lib'))
 	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/lib'));
 
 	var sass 	  = gulp.src('app/assets/templates/sass/**/*')
@@ -121,7 +122,6 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	var buildHtml = gulp.src('app/*.html')
 	.pipe(gulp.dest('dist'))
 	.pipe(gulp.dest('dist/assets/templates/original/app'));
-//	.pipe(gulp.dest('elements/templates')); // сюда летят все html файлы которые мы будем нарезать на чанки
 
 	//если надо скопировать html в templates
 	var option, i = process.argv.indexOf("--el");
