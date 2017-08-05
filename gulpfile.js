@@ -1,5 +1,6 @@
 // инструкции
 var gulp  		 = require('gulp');
+var pug 		 = require('gulp-pug');
 var sass 		 = require('gulp-sass');
 var browserSunc  = require('browser-sync');
 var concat 	 	 = require('gulp-concat');
@@ -13,6 +14,14 @@ var cache 		 = require('gulp-cache');
 var autoprefixer = require('gulp-autoprefixer');
 var gzip 		 = require('gulp-gzip');
 
+//тест Pug
+gulp.task('pug', function buildHTML() {
+  return gulp.src('app/pug/*.pug')
+  .pipe(pug({
+  	pretty: true //без сжатия
+  }))
+  .pipe(gulp.dest('app'));
+});
 // сборка сss
 gulp.task('sass', function(){
 	return gulp.src('app/assets/templates/sass/**/*.+(sass|scss)') // откуда брать 
@@ -86,7 +95,11 @@ gulp.task('img', function(){
 		.pipe(gulp.dest('app/assets/templates/img'));
 });
 // слежка
-gulp.task('watch', ['css-libs', 'browser-sync', 'scripts'], function(){
+gulp.task('watch', ['pug' ,'css-libs', 'browser-sync', 'scripts'], function(){
+	var option, i = process.argv.indexOf("--p");
+	if(i>-1 && process.argv[i] === '--p') {
+		gulp.watch('app/pug/**/*.pug', ['pug']);
+	}
 	gulp.watch('app/assets/templates/sass/**/*.+(sass|scss)', ['sass']);// стили
 	gulp.watch('app/*.html', browserSunc.reload);
 	gulp.watch('app/assets/templates/js/**/*.js', browserSunc.reload);
@@ -128,15 +141,24 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	if(i>-1 && process.argv[i] === '--el') {
 		var buildHtml = gulp.src('app/*.html')
 		.pipe(gulp.dest('elements/templates')); // сюда летят все html файлы которые мы будем нарезать на чанки
+		//собераем все Pug чанки в чанки =)
+		gulp.src('app/pug/chunks/**/*.pug')
+		.pipe(pug({ pretty: true })) 
+		.pipe(rename({extname: '.tpl'}))
+		.pipe(gulp.dest('elements/chunks'));
 	}
 
 	var gulpfile  = gulp.src('gulpfile.js')
 	.pipe(gulp.dest('dist/assets/templates/original'));
 
-	var pjson     = gulp.src('package.json')
+	var pjson	  = gulp.src('package.json')
 	.pipe(gulp.dest('dist/assets/templates/original'));
 
 	var boresrc   = gulp.src('.bowerrc')
 	.pipe(gulp.dest('dist/assets/templates/original'));
 
+});
+
+gulp.task('dels', function(){
+	del('elements/chunks/**/*.html'); 
 });
