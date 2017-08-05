@@ -7,6 +7,7 @@ $ npm i
 [Flexbox Grid]
 
 #### В сборку входит:
+ - `bower`
  - `gulp`
  - `gulp-pug` - шаблонизатор
  - `gulp-sass`
