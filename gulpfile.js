@@ -121,6 +121,7 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	.pipe(gulp.dest('dist/assets/templates/img'))
 	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/img'));
 
+
 	var buildJs   = gulp.src('app/assets/templates/js/**/*')
 	.pipe(gulp.dest('dist/assets/templates/js'))
 	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/js'));
@@ -135,6 +136,9 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	var buildHtml = gulp.src('app/*.html')
 	.pipe(gulp.dest('dist'))
 	.pipe(gulp.dest('dist/assets/templates/original/app'));
+
+	var pug 	  = gulp.src('app/pug/**/*')
+	.pipe(gulp.dest('dist/assets/templates/original/pug'));
 
 	//если надо скопировать html в templates
 	var option, i = process.argv.indexOf("--el");
