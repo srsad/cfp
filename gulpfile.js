@@ -1,26 +1,26 @@
 // инструкции
-var gulp  		 = require('gulp');
-var pug 		 = require('gulp-pug');
-var sass 		 = require('gulp-sass');
-var browserSunc  = require('browser-sync');
-var concat 	 	 = require('gulp-concat');
-var uglify 	 	 = require('gulp-uglify');
-var cssnano		 = require('gulp-cssnano');
-var rename		 = require('gulp-rename');
-var del 		 = require('del');
-var imagemin	 = require('gulp-imagemin');
-var pngquant	 = require('imagemin-pngquant');
-var cache 		 = require('gulp-cache');
-var autoprefixer = require('gulp-autoprefixer');
-var gzip 		 = require('gulp-gzip');
+var gulp  		 = require('gulp'),
+	pug 		 = require('gulp-pug'),
+	sass 		 = require('gulp-sass'),
+	browserSunc  = require('browser-sync'),
+	concat 	 	 = require('gulp-concat'),
+	uglify 	 	 = require('gulp-uglify'),
+	cssnano		 = require('gulp-cssnano'),
+	rename		 = require('gulp-rename'),
+	del 		 = require('del'),
+	imagemin	 = require('gulp-imagemin'),
+	pngquant	 = require('imagemin-pngquant'),
+	cache 		 = require('gulp-cache'),
+	autoprefixer = require('gulp-autoprefixer'),
+	gzip 		 = require('gulp-gzip');
 
 //Pug
 gulp.task('pug', function buildHTML() {
-  return gulp.src('app/pug/*.pug')
-  .pipe(pug({
-  	pretty: true //без сжатия
-  }))
-  .pipe(gulp.dest('app'));
+	return gulp.src('app/pug/*.pug')
+	.pipe(pug({
+		pretty: true //без сжатия
+	}))
+	.pipe(gulp.dest('app'));
 });
 // сборка сss
 gulp.task('sass', function(){
@@ -110,35 +110,26 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	// dist - папка с готовым проектом
 	// в "original" леттит полный оригинальный проект проект
 	var bBuildCss  = gulp.src('app/assets/templates/css/**/*')
-	.pipe(gulp.dest('dist/assets/templates/css'))
-	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/css'));
+	.pipe(gulp.dest('dist/assets/templates/css'));
 
 	var bFonts     = gulp.src('app/assets/templates/fonts/**/**')
-	.pipe(gulp.dest('dist/assets/templates/fonts'))
-	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/fonts'));
+	.pipe(gulp.dest('dist/assets/templates/fonts'));
 
 	var bImg 	  = gulp.src('app/assets/templates/img/**/')
-	.pipe(gulp.dest('dist/assets/templates/img'))
-	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/img'));
+	.pipe(gulp.dest('dist/assets/templates/img'));
 
 
 	var bBuildJs   = gulp.src('app/assets/templates/js/**/*')
-	.pipe(gulp.dest('dist/assets/templates/js'))
-	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/js'));
+	.pipe(gulp.dest('dist/assets/templates/js'));
 
 	var bLils 	  = gulp.src('app/assets/templates/lib/**/*')
-	.pipe(gulp.dest('dist/assets/templates/lib'))
-	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/lib'));
+	.pipe(gulp.dest('dist/assets/templates/lib'));
 
 	var bSass 	  = gulp.src('app/assets/templates/sass/**/*')
-	.pipe(gulp.dest('dist/assets/templates/original/app/assets/templates/sass'));
+	.pipe(gulp.dest('dist/assets/templates/sass'));
 
 	var bBuildHtml = gulp.src('app/*.html')
-	.pipe(gulp.dest('dist'))
-	.pipe(gulp.dest('dist/assets/templates/original/app'));
-
-	var bPug 	  = gulp.src('app/pug/**/*')
-	.pipe(gulp.dest('dist/assets/templates/original/pug'));
+	.pipe(gulp.dest('dist'));
 
 	//если надо скопировать html в templates
 	var boption, i = process.argv.indexOf("--el");
@@ -152,6 +143,9 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 		.pipe(gulp.dest('elements/chunks'));
 	}
 
+//	var bPug 	  = gulp.src('app/pug/**/*')
+/*
+	.pipe(gulp.dest('dist/assets/templates/original/pug'));
 	var bGulpfile  = gulp.src('gulpfile.js')
 	.pipe(gulp.dest('dist/assets/templates/original'));
 
@@ -160,6 +154,6 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 
 	var bBoresrc   = gulp.src('.bowerrc')
 	.pipe(gulp.dest('dist/assets/templates/original'));
-
+*/
 });
 
