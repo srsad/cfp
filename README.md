@@ -48,6 +48,6 @@ Bower грузит в `app/assets/templates/lib/`
 
 Если у вас возникнут проблемы с понимаением синтаксиса и приципов работы `pug`, то можно воспользоваться онлайн конвектором [pug/jade] который работает в обе стороны, очень удобная штука для людей которые только начали познавать дзен. Ну и конечно читайте оригинальные доки, там есть и `extends` и `include`и много чего еще.
 
-[Flexbox Grid]: <https://getbootstrap.com/docs/4.0/layout/grid/>
+[Bootstrap v4.0.0-beta]: <https://getbootstrap.com/docs/4.0/layout/grid/>
 [pug/jade]: <http://html2jade.org/>
 
