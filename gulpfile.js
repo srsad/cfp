@@ -46,7 +46,7 @@ gulp.task('sassb', function(){
 // сборка и сжатие скриптов
 gulp.task('scripts', function(){
 	return gulp.src(['app/assets/templates/lib/jquery/dist/jquery.min.js',
-			'app/assets/templates/lib/popper.js/dist/popper.min.js'
+			'app/assets/templates/lib/popper.js/dist/popper.min.js',
 			'app/assets/templates/lib/bootstrap/dist/js/bootstrap.min.js',
 		])
 		.pipe(concat('libs.min.js')) // сборка в один файл
@@ -117,7 +117,6 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 
 	var bImg 	  = gulp.src('app/assets/templates/img/**/')
 	.pipe(gulp.dest('dist/assets/templates/img'));
-
 
 	var bBuildJs   = gulp.src('app/assets/templates/js/**/*')
 	.pipe(gulp.dest('dist/assets/templates/js'));
