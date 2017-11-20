@@ -142,17 +142,5 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 		.pipe(gulp.dest('elements/chunks'));
 	}
 
-//	var bPug 	  = gulp.src('app/pug/**/*')
-/*
-	.pipe(gulp.dest('dist/assets/templates/original/pug'));
-	var bGulpfile  = gulp.src('gulpfile.js')
-	.pipe(gulp.dest('dist/assets/templates/original'));
-
-	var bPjson	  = gulp.src('package.json')
-	.pipe(gulp.dest('dist/assets/templates/original'));
-
-	var bBoresrc   = gulp.src('.bowerrc')
-	.pipe(gulp.dest('dist/assets/templates/original'));
-*/
 });
 
