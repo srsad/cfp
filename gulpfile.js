@@ -127,9 +127,6 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	var bSass 	  = gulp.src('app/assets/templates/sass/**/*')
 	.pipe(gulp.dest('dist/assets/templates/sass'));
 
-	var bBuildHtml = gulp.src('app/*.html')
-	.pipe(gulp.dest('dist'));
-
 	//если надо скопировать html в templates
 	var boption, i = process.argv.indexOf("--el");
 	if(i>-1 && process.argv[i] === '--el') {
@@ -140,6 +137,9 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 		.pipe(pug({ pretty: true })) 
 		.pipe(rename({extname: '.tpl'}))
 		.pipe(gulp.dest('elements/chunks'));
+	}else{
+		var bBuildHtml = gulp.src('app/*.html')
+		.pipe(gulp.dest('dist'));
 	}
 
 });
