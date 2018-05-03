@@ -24,46 +24,46 @@ gulp.task('pug', function buildHTML() {
 });
 // сборка сss
 gulp.task('sass', function(){
-	return gulp.src('app/assets/templates/sass/**/*.+(sass|scss)') // откуда брать 
+	return gulp.src('app/assets/templates/default/sass/**/*.+(sass|scss)') // откуда брать 
 		.pipe(sass()) // преобразовать
 		.pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true})) // поставить префиксы
-		.pipe(gulp.dest('app/assets/templates/css')) // отдать оригинал
+		.pipe(gulp.dest('app/assets/templates/default/css')) // отдать оригинал
 		.pipe(browserSunc.reload({stream: true})); // инектим стили
 });
 // в ообщем, этот костыль использует только сборщик
 // он нужен из-за того что при сжатии вылетает browser Sunc, возможно это только мой глюк
 gulp.task('sassb', function(){
-	return gulp.src('app/assets/templates/sass/**/*.+(sass|scss)') // откуда брать 
+	return gulp.src('app/assets/templates/default/sass/**/*.+(sass|scss)') // откуда брать 
 		.pipe(sass()) // преобразовать
 		.pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true})) // поставить префиксы
-		.pipe(gulp.dest('app/assets/templates/css')) // отдать оригинал
+		.pipe(gulp.dest('app/assets/templates/default/css')) // отдать оригинал
 		.pipe(cssnano()) // сжать
 		.pipe(rename({suffix: '.min'})) // добавить суффикс
-		.pipe(gulp.dest('app/assets/templates/css')) // отдать min
+		.pipe(gulp.dest('app/assets/templates/default/css')) // отдать min
 		.pipe(gzip())
-		.pipe(gulp.dest('app/assets/templates/css')); // отдать сжатое
+		.pipe(gulp.dest('app/assets/templates/default/css')); // отдать сжатое
 });
 // сборка и сжатие скриптов
 gulp.task('scripts', function(){
-	return gulp.src(['app/assets/templates/lib/jquery/dist/jquery.min.js',
-			'app/assets/templates/lib/popper.js/dist/popper.min.js',
-			'app/assets/templates/lib/bootstrap/dist/js/bootstrap.min.js',
+	return gulp.src(['app/assets/templates/default/lib/jquery/dist/jquery.min.js',
+			'app/assets/templates/default/lib/popper.js/dist/popper.min.js',
+			'app/assets/templates/default/lib/bootstrap/dist/js/bootstrap.min.js',
 		])
 		.pipe(concat('libs.min.js')) // сборка в один файл
-		.pipe(gulp.dest('app/assets/templates/js')) // выгрузка оригинала
+		.pipe(gulp.dest('app/assets/templates/default/js')) // выгрузка оригинала
 		.pipe(uglify()) // сжатие
-		.pipe(gulp.dest('app/assets/templates/js')) // выгрузка минифицированого
+		.pipe(gulp.dest('app/assets/templates/default/js')) // выгрузка минифицированого
 		.pipe(gzip())
-		.pipe(gulp.dest('app/assets/templates/js')); // выгрузка сжатого
+		.pipe(gulp.dest('app/assets/templates/default/js')); // выгрузка сжатого
 });
 // сборка и сжатие стилей
 gulp.task('css-libs', ['sass'], function(){
-	return gulp.src('app/assets/templates/css/libs.css')
+	return gulp.src('app/assets/templates/default/css/libs.css')
 		.pipe(cssnano())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('app/assets/templates/css'))
+		.pipe(gulp.dest('app/assets/templates/default/css'))
 		.pipe(gzip())
-		.pipe(gulp.dest('app/assets/templates/css'));
+		.pipe(gulp.dest('app/assets/templates/default/css'));
 });
 
 gulp.task('browser-sync', function(){
@@ -85,14 +85,14 @@ gulp.task('clearCache', function() {
 });
 // изображения
 gulp.task('img', function(){
-	return gulp.src('app/assets/templates/img/**/*')
+	return gulp.src('app/assets/templates/default/img/**/*')
 		.pipe(cache(imagemin({
 			interlaced: true,
 			progressive: true,
 			svgoPlugins: [{removeViewBox: false}],
 			une: [pngquant()]
 		})))
-		.pipe(gulp.dest('app/assets/templates/img'));
+		.pipe(gulp.dest('app/assets/templates/default/img'));
 });
 // слежка
 gulp.task('watch', ['pug' ,'css-libs', 'browser-sync', 'scripts'], function(){
@@ -100,31 +100,31 @@ gulp.task('watch', ['pug' ,'css-libs', 'browser-sync', 'scripts'], function(){
 	if(i>-1 && process.argv[i] === '--p') {
 		gulp.watch('app/pug/**/*.pug', ['pug']);
 	}
-	gulp.watch('app/assets/templates/sass/**/*.+(sass|scss)', ['sass']);// стили
+	gulp.watch('app/assets/templates/default/sass/**/*.+(sass|scss)', ['sass']);// стили
 	gulp.watch('app/*.html', browserSunc.reload);
-	gulp.watch('app/assets/templates/js/**/*.js', browserSunc.reload);
+	gulp.watch('app/assets/templates/default/js/**/*.js', browserSunc.reload);
 });
 
 // сборщик на продакшен
 gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	// dist - папка с готовым проектом
 	// в "original" леттит полный оригинальный проект проект
-	var bBuildCss  = gulp.src('app/assets/templates/css/**/*')
+	var bBuildCss  = gulp.src('app/assets/templates/default/css/**/*')
 	.pipe(gulp.dest('dist/assets/templates/css'));
 
-	var bFonts     = gulp.src('app/assets/templates/fonts/**/**')
+	var bFonts     = gulp.src('app/assets/templates/default/fonts/**/**')
 	.pipe(gulp.dest('dist/assets/templates/fonts'));
 
-	var bImg 	  = gulp.src('app/assets/templates/img/**/')
+	var bImg 	  = gulp.src('app/assets/templates/default/img/**/')
 	.pipe(gulp.dest('dist/assets/templates/img'));
 
-	var bBuildJs   = gulp.src('app/assets/templates/js/**/*')
+	var bBuildJs   = gulp.src('app/assets/templates/default/js/**/*')
 	.pipe(gulp.dest('dist/assets/templates/js'));
 
-	var bLils 	  = gulp.src('app/assets/templates/lib/**/*')
+	var bLils 	  = gulp.src('app/assets/templates/default/lib/**/*')
 	.pipe(gulp.dest('dist/assets/templates/lib'));
 
-	var bSass 	  = gulp.src('app/assets/templates/sass/**/*')
+	var bSass 	  = gulp.src('app/assets/templates/default/sass/**/*')
 	.pipe(gulp.dest('dist/assets/templates/sass'));
 
 	//если надо скопировать html в templates
