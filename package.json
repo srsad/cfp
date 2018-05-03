@@ -6,22 +6,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "thispenis",
+  "author": "srs",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.18.12",
+    "browser-sync": "^2.24.2",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-cache": "^0.4.6",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cache": "^1.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-gzip": "^1.4.0",
-    "gulp-imagemin": "^3.3.0",
-    "gulp-pug": "^3.3.0",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-gzip": "^1.4.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-pug": "^4.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
+    "gulp-sass": "^4.0.1",
     "gulp-uglify": "^3.0.0",
-    "imagemin-pngquant": "^5.0.1"
-  }
+    "imagemin-pngquant": "^5.1.0"
+  },
+  "dependencies": {}
 }
