@@ -110,22 +110,22 @@ gulp.task('build', ['clean', 'sassb', 'scripts', 'img',], function(){
 	// dist - папка с готовым проектом
 	// в "original" леттит полный оригинальный проект проект
 	var bBuildCss  = gulp.src('app/assets/templates/default/css/**/*')
-	.pipe(gulp.dest('dist/assets/templates/css'));
+	.pipe(gulp.dest('dist/assets/templates/default/css'));
 
 	var bFonts     = gulp.src('app/assets/templates/default/fonts/**/**')
-	.pipe(gulp.dest('dist/assets/templates/fonts'));
+	.pipe(gulp.dest('dist/assets/templates/default/fonts'));
 
 	var bImg 	  = gulp.src('app/assets/templates/default/img/**/')
-	.pipe(gulp.dest('dist/assets/templates/img'));
+	.pipe(gulp.dest('dist/assets/templates/default/img'));
 
 	var bBuildJs   = gulp.src('app/assets/templates/default/js/**/*')
-	.pipe(gulp.dest('dist/assets/templates/js'));
+	.pipe(gulp.dest('dist/assets/templates/default/js'));
 
 	var bLils 	  = gulp.src('app/assets/templates/default/lib/**/*')
-	.pipe(gulp.dest('dist/assets/templates/lib'));
+	.pipe(gulp.dest('dist/assets/templates/default/lib'));
 
 	var bSass 	  = gulp.src('app/assets/templates/default/sass/**/*')
-	.pipe(gulp.dest('dist/assets/templates/sass'));
+	.pipe(gulp.dest('dist/assets/templates/default/sass'));
 
 	//если надо скопировать html в templates
 	var boption, i = process.argv.indexOf("--el");
