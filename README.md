@@ -10,11 +10,11 @@ npm i
  - `bower`
  - `gulp`
  - `gulp-util`
- - `gulp-pug` - шаблонизатор
+ - `gulp-pug`
  - `gulp-sass`
  - `browser-sync`
- - `gulp-concat` - для конкатенации файлов
- - `gulp-uglify` - для сжатия 
+ - `gulp-concat`
+ - `gulp-uglify`
  - `gulp-clean-css`
  - `gulp-rename`
  - `gulp-autoprefixer`
