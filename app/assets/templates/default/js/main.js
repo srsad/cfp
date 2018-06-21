@@ -1,4 +1,5 @@
-$(document).ready(function(){
-	$('#preloader').fadeOut(200);
+$(function() {
+
+	// Custom JS
 
 });
