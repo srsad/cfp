@@ -21,7 +21,7 @@ npm i
  - `gulp-notify`
  - `gulp-rsync`
 
-Bower грузит в `app/assets/templates/lib/`
+Bower грузит в `app/assets/templates/default/lib/`
 
 #### Список команд:
  - `gulp sass` - сборка сss по правилу `app/.../sass/**/*.+(sass|scss)`
