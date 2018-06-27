@@ -95,8 +95,8 @@ gulp.task('build', ['styles', 'js', 'pug'], function(){
 	var bBuildJs	= gulp.src('app/assets/templates/default/js/**/*')
 	.pipe(gulp.dest('dist/assets/templates/default/js'));
 
-	var bLils		= gulp.src('app/assets/templates/default/lib/**/*')
-	.pipe(gulp.dest('dist/assets/templates/default/lib'));
+	var bLils		= gulp.src('app/assets/templates/default/libs/**/*')
+	.pipe(gulp.dest('dist/assets/templates/default/libs'));
 
 	var bSass		= gulp.src('app/assets/templates/default/sass/**/*')
 	.pipe(gulp.dest('dist/assets/templates/default/sass'));
