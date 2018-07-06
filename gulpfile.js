@@ -104,13 +104,18 @@ gulp.task('build', ['styles', 'js', 'pug'], function(){
 	// если надо скопировать html в templates
 	var option = process.argv.indexOf("--el");
 	if(option>-1 && process.argv[option] === '--el') {
-
-		var bBuildHtml = gulp.src('app/*.html')
+		var bBuildHtml = gulp.src(['app/*.html', '!app/index.html'])
 		.pipe(gulp.dest('elements/templates'));
+
+		gulp.src('app/index.html')
+		.pipe(rename({basename: 'main'}))
+		.pipe(gulp.dest('elements/templates')); // index rename
+
 		gulp.src('app/pug/chunks/**/*.pug')
 		.pipe(pug({ pretty: true })) 
 		.pipe(rename({extname: '.tpl'}))
 		.pipe(gulp.dest('elements/chunks'));
+
 	}else{
 		
 		var bBuildHtml = gulp.src('app/*.html')
