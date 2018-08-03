@@ -46,7 +46,8 @@ gulp.task('styles', function() {
 gulp.task('js', function() {
 	return gulp.src([
 		'app/assets/templates/default/libs/jquery/dist/jquery.min.js',
-		'app/assets/templates/default/js/main.js', // Always at the end
+		'app/assets/templates/default/libs/bootstrap/js/bootstrap.min.js',
+		'app/assets/templates/default/js/main.js',
 		])
 	.pipe(concat('scripts.min.js'))
 	// .pipe(uglify()) // Mifify js (opt.)
