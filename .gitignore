@@ -1,4 +1,6 @@
+v2
 node_modules
+package-lock.json
 dist/sftp-config.json
 elements/sftp-config.json
 dist/assets/templates/default/img/goods.jpg
