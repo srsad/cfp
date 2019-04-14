@@ -6,21 +6,6 @@ npm i
 #### Основное
 Вообще это надстройка от [этого], я только обновил bootstrap с [4.0] до [4.1], добавил шаблонизатор и адаптировал под себя.
 
-#### В сборку входит:
- - `bower`
- - `gulp`
- - `gulp-util`
- - `gulp-pug`
- - `gulp-sass`
- - `browser-sync`
- - `gulp-concat`
- - `gulp-uglify`
- - `gulp-clean-css`
- - `gulp-rename`
- - `gulp-autoprefixer`
- - `gulp-notify`
- - `gulp-rsync`
-
 Bower грузит в `app/assets/templates/default/lib/`
 
 #### Список команд:
