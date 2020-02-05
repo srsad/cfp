@@ -1,126 +1,89 @@
-var gulp 		 = require('gulp'),
-	gutil 		 = require('gulp-util'),
-	pug 		 = require('gulp-pug'),
-	sass 		 = require('gulp-sass'),
-	browserSync  = require('browser-sync'),
-	concat		 = require('gulp-concat'),
-	uglify 		 = require('gulp-uglify'),
-	cleancss 	 = require('gulp-clean-css'),
-	rename 		 = require('gulp-rename'),
-	autoprefixer = require('gulp-autoprefixer'),
-	notify 		 = require("gulp-notify"),
-	rsync 		 = require('gulp-rsync');
+const gulp = require('gulp');
+const pug = require('gulp-pug');
+const sass = require('gulp-sass');
+const browserSync = require('browser-sync');
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
+const cleancss = require('gulp-clean-css');
+const rename = require('gulp-rename');
+const autoprefixer = require('gulp-autoprefixer');
+const notify = require('gulp-notify');
 
 // pug
-gulp.task('pug', function buildHTML() {
+gulp.task('pug', () => {
 	return gulp.src('app/pug/*.pug')
-	.pipe(pug({
-		pretty: true // без сжатия
-	})).on('error', notify.onError())
-	.pipe(gulp.dest('app'));
+    .pipe(pug({ pretty: true }))
+    .on('error', notify.onError())
+    .pipe(gulp.dest('app'));
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('styles', () => {
+	return gulp.src('app/assets/templates/default/sass/**/*.+(sass|scss)')
+    .pipe(sourcemaps.init())
+    .pipe(sass({ outputStyle: 'expanded' }).on('error', notify.onError()))
+    .pipe(gulp.dest('app/assets/templates/default/css'))
+    .pipe(rename({ suffix: '.min', prefix : '' }))
+    .pipe(autoprefixer(['last 15 versions'], {cascade: true}))
+    .pipe(cleancss( {level: { 1: { specialComments: 0 } } }))
+    .pipe(gulp.dest('app/assets/templates/default/css'))
+    .pipe(sourcemaps.write())
+    .pipe(browserSync.stream());
+});
+
+gulp.task('js', () => {
+	return gulp.src([
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
+      'app/assets/templates/default/js/main.js'
+		])
+    .pipe(concat('scripts.min.js'))
+    // .pipe(uglify()) // путь пока будет так
+    .pipe(gulp.dest('app/assets/templates/default/js/'))
+    .pipe(browserSync.reload({ stream: true }));
+});
+
+
+gulp.task('browser-sync', () => {
 	browserSync({
 		server: {
 			baseDir: 'app'
 		},
 		notify: false,
-		open: false,
-		// online: false, // Work Offline Without Internet Connection
-		// tunnel: true, tunnel: "projectname", // Demonstration page: http://projectname.localtunnel.me
+		open: false
 	});
 });
 
-gulp.task('styles', function() {
-	return gulp.src('app/assets/templates/default/sass/**/*.+(sass|scss)')
-	.pipe(sass({ outputStyle: 'expanded' }).on('error', notify.onError()))
-	.pipe(gulp.dest('app/assets/templates/default/css'))
-	.pipe(rename({ suffix: '.min', prefix : '' }))
-	.pipe(autoprefixer(['last 15 versions'], {cascade: true}))
-	.pipe(cleancss( {level: { 1: { specialComments: 0 } } }))
-	.pipe(gulp.dest('app/assets/templates/default/css'))
-	.pipe(browserSync.stream());
+gulp.task('watch', gulp.parallel('styles', 'js', 'browser-sync', 'pug'), () => {
+  if(process.argv.includes('--p')) gulp.watch('app/pug/**/*.pug', gulp.parallel("pug"));
+
+  gulp.watch('app/assets/templates/default/sass/**/*.+(sass|scss)', gulp.parallel('styles'));
+  gulp.watch(['assets/templates/default/libs/**/*.js', 'app/assets/templates/default/js/main.js'], gulp.parallel('js'));
+  gulp.watch('app/*.html', browserSync.reload);
 });
 
-gulp.task('js', function() {
-	return gulp.src([
-		'app/assets/templates/default/libs/jquery/dist/jquery.min.js',
-		'app/assets/templates/default/libs/bootstrap/js/bootstrap.min.js',
-		'app/assets/templates/default/js/main.js',
-		])
-	.pipe(concat('scripts.min.js'))
-	// .pipe(uglify()) // Mifify js (opt.)
-	.pipe(gulp.dest('app/assets/templates/default/js/'))
-	.pipe(browserSync.reload({ stream: true }));
-});
+gulp.task("default", gulp.parallel("pug", "styles", "js", "browser-sync", "watch"));
 
-gulp.task('rsync', function() {
-	return gulp.src('app/**')
-	.pipe(rsync({
-		root: 'app/',
-		hostname: 'username@yousite.com',
-		destination: 'yousite/public_html/',
-		// include: ['*.htaccess'], // Includes files to deploy
-		exclude: ['**/Thumbs.db', '**/*.DS_Store'], // Excludes files from deploy
-		recursive: true,
-		archive: true,
-		silent: false,
-		compress: true
-	}))
-});
+gulp.task('build', gulp.series('styles', 'js', 'pug'), async () => {
+  gulp.src('app/assets/templates/default/**/*')
+  	.pipe(gulp.dest('dist/assets/templates/default'));
 
-gulp.task('watch', ['styles', 'js', 'browser-sync', 'pug'], function() {
-	var option = process.argv.indexOf("--p");
-	if(option>-1 && process.argv[option] === '--p') {
-		gulp.watch('app/pug/**/*.pug', ['pug']);
-	}
-	gulp.watch('app/assets/templates/default/sass/**/*.+(sass|scss)', ['styles']);
-	gulp.watch(['assets/templates/default/libs/**/*.js', 'app/assets/templates/default/js/main.js'], ['js']);
-	gulp.watch('app/*.html', browserSync.reload);
-});
-
-gulp.task('default', ['watch']);
-
-// сборка
-gulp.task('build', ['styles', 'js', 'pug'], function(){
-	var bBuildCss	= gulp.src('app/assets/templates/default/css/**/*')
-	.pipe(gulp.dest('dist/assets/templates/default/css'));
-
-	var bFonts		= gulp.src('app/assets/templates/default/fonts/**/**')
-	.pipe(gulp.dest('dist/assets/templates/default/fonts'));
-
-	var bImg		= gulp.src('app/assets/templates/default/img/**/')
-	.pipe(gulp.dest('dist/assets/templates/default/img'));
-
-	var bBuildJs	= gulp.src('app/assets/templates/default/js/**/*')
-	.pipe(gulp.dest('dist/assets/templates/default/js'));
-
-	var bLils		= gulp.src('app/assets/templates/default/libs/**/*')
-	.pipe(gulp.dest('dist/assets/templates/default/libs'));
-
-	var bSass		= gulp.src('app/assets/templates/default/sass/**/*')
-	.pipe(gulp.dest('dist/assets/templates/default/sass'));
-
-	// если надо скопировать html в templates
-	var option = process.argv.indexOf("--el");
-	if(option>-1 && process.argv[option] === '--el') {
-		var bBuildHtml = gulp.src(['app/*.html', '!app/index.html'])
-		.pipe(gulp.dest('elements/templates'));
+	// если fenom
+	if(process.argv.includes('--el')) {
+		gulp.src(['app/*.html', '!app/index.html'])
+  		.pipe(gulp.dest('elements/templates'));
 
 		gulp.src('app/index.html')
-		.pipe(rename({basename: 'main'}))
-		.pipe(gulp.dest('elements/templates')); // index rename
+      .pipe(rename({basename: 'main'}))
+      .pipe(gulp.dest('elements/templates'));
 
-		gulp.src('app/pug/chunks/**/*.pug')
-		.pipe(pug({ pretty: true })) 
-		.pipe(rename({extname: '.tpl'}))
-		.pipe(gulp.dest('elements/chunks'));
-
+    gulp.src('app/pug/chunks/**/*.pug')
+      .pipe(pug({ pretty: true })) 
+      .pipe(rename({extname: '.tpl'}))
+      .pipe(gulp.dest('elements/chunks'));
 	}else{
-		
-		var bBuildHtml = gulp.src('app/*.html')
-		.pipe(gulp.dest('dist'));
+		gulp.src('app/*.html')
+  		.pipe(gulp.dest('dest'));
 	}
-
+  return
 });

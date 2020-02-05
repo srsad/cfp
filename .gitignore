@@ -1,6 +1,4 @@
-v2
+.history
 node_modules
-package-lock.json
-dist/sftp-config.json
+dest/assets/templates/default/sftp-config.json
 elements/sftp-config.json
-dist/assets/templates/default/img/goods.jpg
