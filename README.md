@@ -20,39 +20,39 @@ npm i
 Например:
 ```html
 <div class="container-fluid pt-20 pb-40">
-	<div class="container">
-		<div class="col-12">...</div>
-	</div>
+  <div class="container">
+    <div class="col-12">...</div>
+  </div>
 </div>
 ```
 Фон должен иметь отдельный класс, например `bg-000` (последний три символа хеша), если фон черный. Можно давать различные именования, главное чтоб было читабельно, например `bg-purple`. Если фон блока темный а цвет букв в этом блоке светлый то можно установить пару фон + цвет текста:
 ```css
 .bg-black
-	background: #000
-	color: #fff
+  background: #000
+  color: #fff
 ```
 Не надо устанавливать очевидный серый цвет фона в формате rgba, если на то нет веских оснований. Думаю верхний пример ты узнаешь =)
 ```sass
 // плохо
 .service
-	background-color: rgba(236, 236, 236, 0.6)
+  background-color: rgba(236, 236, 236, 0.6)
 // хорошо
 .service
-	background-color: #f4f4f4
-	// or
-	background-color: rgb(244, 244, 244)
+  background-color: #f4f4f4
+  // or
+  background-color: rgb(244, 244, 244)
 ```
 Как вариант можно еще и выделить цвет в отдельный класс. Типо `.color-последнии_три_символа_хеша` иногда это бывает очень полезно.
 Вот как это выглядит в деле:
 ```html
 <div class="container-fluid bg-000 mt-20 mb-40">
-	<!-- или твой врапер -->
-	<div class="container">
-		<div class="col-12">
-		<p class="color-red">...</p>
-		<p class="color-yellow">...</p>
-		</div>
-	</div>
+  <!-- или твой врапер -->
+  <div class="container">
+    <div class="col-12">
+    <p class="color-red">...</p>
+    <p class="color-yellow">...</p>
+    </div>
+  </div>
 </div>
 ```
 Не надо переопределять классы которые выполняют ровно одну очевидную функцию. Например `container-fluid` означает, что блок будет по всей ширине экрана. Это означает, что когда я вижу `.container-fluid+.container__wrapper`, то я ожидаю увидеть блок по всей ширине + что-то дополняющее, а не меняющее основное свойство класса `container-fluid`. Как вариант `container__wrapper` можно использовать вместе с `container` или автономно.
@@ -64,7 +64,7 @@ npm i
 ```html
 <!-- about -->
 <section class="about">
-	...
+  ...
 </section>
 <!-- end about -->
 ```
