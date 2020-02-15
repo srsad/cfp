@@ -1,30 +1,17 @@
 .prl-0
 	padding-right: 0
 	padding-left: 0
-.m-0 
-	margin: 0
-.mt-5
-	margin-top: 5px
-.mt-25
-	margin-top: 25px
-@for $i from 1 through 10
-	.mt-#{$i}0 
-		margin-top: 10px * $i
-	.mb-#{$i}0
-		margin-bottom: 10px * $i
-	.pt-#{$i}0
-		padding-top: 10px * $i
-	.pb-#{$i}0
-		padding-bottom: 10px * $i
 
-.p-0
-	padding: 0
-.p-20
-	padding: 15px
-.pr-0
-	padding-right: 0
-.pl-0
-	padding-left: 0
+@for $i from 1 through ceil(205/5)
+  $value: ($i - 1)*5;
+  .mt-#{$value} 
+    margin-top: #{$value}px
+  .mb-#{$value}
+    margin-bottom: #{$value}px
+  .pt-#{$value}
+    padding-top: #{$value}px
+  .pb-#{$value}
+    padding-bottom: #{$value}px
 
 .text-up
 	text-transform: uppercase
