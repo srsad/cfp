@@ -39,11 +39,6 @@ gulp.task("js", () => {
       "app/assets/templates/default/js/main/**/*.js"
     ])
     .pipe(concat("scripts.min.js"))
-    .pipe(
-      babel({
-        presets: ["@babel/preset-env"],
-      }),
-    )
     .pipe(gulp.dest("app/assets/templates/default/js"))
     .pipe(browserSync.reload({ stream: true }));
 });
